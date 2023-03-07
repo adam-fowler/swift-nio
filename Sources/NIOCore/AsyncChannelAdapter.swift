@@ -394,7 +394,6 @@ internal final class NIOAsyncChannelWriterHandler<OutboundOut: Sendable>: Channe
 
     @inlinable
     func errorCaught(context: ChannelHandlerContext, error: Error) {
-        self.sink?.finish(error: error)
         context.fireErrorCaught(error)
     }
 
