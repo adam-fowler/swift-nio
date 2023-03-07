@@ -81,6 +81,11 @@ public final class NIOAsyncChannel<InboundIn: Sendable, OutboundOut: Sendable>: 
     public func writeAndFlush<Writes: Sequence>(contentsOf data: Writes) async throws where Writes.Element == OutboundOut {
         try await self.outboundWriter.yield(contentsOf: data)
     }
+
+    @inlinable
+    public func finishWrite() {
+        self.outboundWriter.finish()
+    }
 }
 
 extension Channel {
