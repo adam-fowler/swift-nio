@@ -382,5 +382,23 @@ struct NIOTypedHTTPServerUpgraderStateMachine<UpgradeResult> {
         }
     }
 
+    @usableFromInline
+    enum CloseInboundAction {
+        case close
+        case `continue`
+    }
+
+    @inlinable
+    mutating func closeInbound() -> CloseInboundAction {
+        switch self.state {
+        case .initial, .awaitingUpgrader:
+            self.state = .finished
+            return .close
+
+        default:
+            return .continue
+        }
+    }
+ 
 }
 #endif
